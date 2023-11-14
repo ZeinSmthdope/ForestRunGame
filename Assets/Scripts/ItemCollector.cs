@@ -35,7 +35,8 @@ public class ItemCollector : MonoBehaviour
             isOnCooldown = true;
             GameObject item = items.Pop();
             item.GetComponent<Collectible>().recentlyThrown = true;
-            GetComponent<AudioSource>().Play(); // TODO call this as an event and remove audio source in player
+            // TODO remove audio source in player
+            EventManager.TriggerEvent<GenericEvent, string>("collectableDrop"); // plays the collectable drop sound
             item.GetComponent<Collectible>().isOnMap = true;
             item.transform.rotation = transform.rotation;
             item.transform.position = transform.position + new Vector3(0, 4, 0);

@@ -32,7 +32,8 @@ public class GameOverMenu : MonoBehaviour {
     }
 
     private void enableCanvasGroup(CanvasGroup canvasGroupRef) {
-        GetComponent<AudioSource>().Play(); // TODO call this as an event and remove audio source in GameOverCanvas
+        // TODO remove audio source in GameOverCanvas
+        EventManager.TriggerEvent<GenericEvent, string>("gameOver"); // calls the game over sound
         canvasGroupRef.interactable = true;
         canvasGroupRef.blocksRaycasts = true;
         canvasGroupRef.alpha = 1f;

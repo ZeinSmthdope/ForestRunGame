@@ -11,20 +11,21 @@ public class NextLevel : MonoBehaviour
     public GameObject nextLevelObject;
     public ScoreManager scoreManager;
 
-
     private void OnTriggerEnter(Collider c)
     {
         if (c.attachedRigidbody != null)
         {
-
             InHouseTrigger bc = c.attachedRigidbody.gameObject.GetComponent<InHouseTrigger>();
 
             if (bc != null)
             {
                 bc.InsideHouse();
-
                 //Teleports the player to the next level on the map
                 Vector3 nextLevel = nextLevelObject.transform.position;
+
+                // change background music to snow background
+                EventManager.TriggerEvent<GenericEvent, string>("snowBackground");
+
                 player.transform.position = nextLevel;
 
                 //Resets Boolean 

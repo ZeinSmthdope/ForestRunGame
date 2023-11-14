@@ -12,8 +12,6 @@ public class TeleportTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.transform.position = teleportTarget.position;
-            // TODO change background music to snow background
-
             if (enableFogOnTeleport)
             {
                 EnableFog();

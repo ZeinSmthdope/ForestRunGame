@@ -39,7 +39,8 @@ public class HealthManager : MonoBehaviour
     }
 
     public void TakeDamage(float damage) {
-        GetComponent<AudioSource>().Play(); // TODO call this as an event and remove audio source in HealthManagerGameObj
+        // TODO remove audio source in HealthManagerGameObj
+        EventManager.TriggerEvent<GenericEvent, string>("playerDamage"); // calls the player damage sound
         healthAmount -= damage;
         healthBar.fillAmount = healthAmount / 100f;
     }

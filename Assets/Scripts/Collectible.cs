@@ -13,7 +13,7 @@ public class Collectible : MonoBehaviour
         // Item is recently thrown, enable kinematics
         if (recentlyThrown)
         {
-            Debug.Log("[Collectible.cs] " + gameObject.name + " is recently thrown, disabled kinematics");
+            //Debug.Log("[Collectible.cs] " + gameObject.name + " is recently thrown, disabled kinematics");
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
@@ -25,7 +25,7 @@ public class Collectible : MonoBehaviour
         if (recentlyThrown && collision.gameObject.name == "Terrain")
         {
             isOnMap = true;
-            Debug.Log("[Collectible.cs] " + gameObject.name + " has collied with Terrain, enabled kinematics");
+            //Debug.Log("[Collectible.cs] " + gameObject.name + " has collied with Terrain, enabled kinematics");
             recentlyThrown = false;
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
         }
@@ -33,7 +33,7 @@ public class Collectible : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("[Collectible.cs] Collision " + gameObject.name);
+        //Debug.Log("[Collectible.cs] Collision " + gameObject.name);
 
         if (recentlyThrown) return; // This is true until the burger collides with Terrain
         if (!collision.attachedRigidbody) return; // Protect against null
@@ -48,16 +48,9 @@ public class Collectible : MonoBehaviour
                 isOnMap = false;
                 transform.localPosition = Vector3.zero;
                 player.pickupItem(gameObject);
-                Debug.Log("[Collectible.cs] Picked up " + gameObject.name);
-                GetComponent<AudioSource>().Play(); // TODO call this as an event and remove audio source in Burger1
-            }
-        } else if (dirty) {
-            EnemyControlScript enemy = collision.attachedRigidbody.gameObject.GetComponent<EnemyControlScript>();
-            if (enemy != null && enemy.isDistracted)
-            {
-                isOnMap = false;
-                transform.localPosition = Vector3.zero;
-                Debug.Log("[Collectible.cs] Enemy collided while distracted " + gameObject.name);
+                //Debug.Log("[Collectible.cs] Picked up " + gameObject.name);
+                // TODO remove audio source in Burger1
+                EventManager.TriggerEvent<GenericEvent, string>("collectablePickUp"); // calls the collectable pick up sound
             }
         }
     }

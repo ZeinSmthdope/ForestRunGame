@@ -93,6 +93,8 @@ public class CharacterControlScript : MonoBehaviour
     {
         if (!m_jumpInput && Input.GetKey(KeyCode.Space))
         {
+            // TODO this will be called serval times when player jumps once
+            EventManager.TriggerEvent<GenericEvent, string>("playerJumping"); // calls the jump sound
             m_jumpInput = true;
         }
     }
@@ -130,6 +132,9 @@ public class CharacterControlScript : MonoBehaviour
 
         if (direction != Vector3.zero)
         {
+            // TODO is where the character moves?
+            // Debug.Log("Moving?");
+            // EventManager.TriggerEvent<GenericEvent, string>("playerWalking"); // calls the walking sound
             m_currentDirection = Vector3.Slerp(m_currentDirection, direction, Time.deltaTime * interpolation);
 
             transform.rotation = Quaternion.LookRotation(m_currentDirection);
@@ -161,4 +166,19 @@ public class CharacterControlScript : MonoBehaviour
             m_animator.SetTrigger("Jump");
         }
     }
+
+    public void ApplyTemporarySpeedBoost(float increaseAmount, float duration)
+    {
+        float originalSpeed = moveSpeed;
+        moveSpeed += increaseAmount;
+
+        StartCoroutine(ResetSpeedAfterDelay(originalSpeed, duration));
+    }
+    private IEnumerator ResetSpeedAfterDelay(float originalSpeed, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        moveSpeed = originalSpeed;
+    }
+
+
 }
