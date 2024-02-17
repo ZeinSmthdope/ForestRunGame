@@ -10,17 +10,24 @@ public class AudioEventManager : MonoBehaviour
 
     public AudioClip bearGrowlAudio;
     public AudioClip catMeowAudio;
-    public AudioClip NatureBackgroundAudio;
+    public AudioClip wolfHowlAudio;
+    public AudioClip boarOinkAudio;
+    public AudioClip spiderHissAudio;
+    public AudioClip natureBackgroundAudio;
     public AudioClip playerJumpingAudio;
     public AudioClip playerWalkingAudio;
-    public AudioClip SnowBackgroundAudio;
+    public AudioClip snowBackgroundAudio;
+    public AudioClip desertBackgroundAudio;
     public AudioClip collectablePickUpAudio;
     public AudioClip playerDamageAudio;
     public AudioClip gameOverAudio;
     public AudioClip collectableDropAudio;
+    public AudioClip playerConsumingAudio;
+    public AudioClip speedBoostAudio;
 
     private UnityAction<string> genericEventListener;
     private AudioSource currBackgroundMusic;
+    private AudioSource currWalkingAudio;
 
 
     void Awake()
@@ -85,9 +92,19 @@ public class AudioEventManager : MonoBehaviour
             case "catMeow":
                 snd.audioSrc.clip = this.catMeowAudio;
                 break;
+            case "wolfHowl":
+                snd.audioSrc.clip = this.wolfHowlAudio;
+                snd.audioSrc.volume = 0.5f;
+                break;
+            case "spiderHiss":
+                snd.audioSrc.clip = this.spiderHissAudio;
+                break;
+            case "boarOink":
+                snd.audioSrc.clip = this.boarOinkAudio;
+                break;
             case "natureBackground":
-                snd.audioSrc.clip = this.NatureBackgroundAudio;
-                snd.audioSrc.volume = 1.0f;
+                snd.audioSrc.clip = this.natureBackgroundAudio;
+                snd.audioSrc.volume = 0.25f;
                 configureLoopingClip(snd);
                 break;
             case "playerJumping":
@@ -96,14 +113,34 @@ public class AudioEventManager : MonoBehaviour
                 break;
             case "playerWalking":
                 snd.audioSrc.clip = this.playerWalkingAudio;
+                snd.audioSrc.volume = 0.5f;
+                this.currWalkingAudio = snd.audioSrc;
+                break;
+            case "stopPlayerWalking":
+                if (currWalkingAudio != null && currWalkingAudio.isPlaying) {
+                    this.currWalkingAudio.Stop();
+                }
                 break;
             case "snowBackground":
-                snd.audioSrc.clip = this.SnowBackgroundAudio;
-                snd.audioSrc.volume = 1.0f;
+                snd.audioSrc.clip = this.snowBackgroundAudio;
+                snd.audioSrc.volume = 0.25f;
                 configureLoopingClip(snd);
                 break;
+            case "desertBackground":
+                snd.audioSrc.clip = this.desertBackgroundAudio;
+                snd.audioSrc.volume = 0.25f;
+                configureLoopingClip(snd);
+                break;
+            case "speedBoost":
+                snd.audioSrc.clip = this.speedBoostAudio;
+                snd.audioSrc.volume = 0.10f;
+                break;
+            case "playerConsuming":
+                snd.audioSrc.clip = this.playerConsumingAudio;
+                snd.audioSrc.volume = 1.0f;
+                break;
             default:
-                snd.audioSrc.clip = this.collectableDropAudio;
+                Debug.LogError("No valid clip found for '" + clipName + "'.");
                 break;
         }
     }

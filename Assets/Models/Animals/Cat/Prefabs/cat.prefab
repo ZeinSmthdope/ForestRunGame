@@ -370,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 0
   hasCompleted: 0
+  attackAudioName: catMeow
 --- !u!114 &-2128609338195546594
 MonoBehaviour:
   m_ObjectHideFlags: 0

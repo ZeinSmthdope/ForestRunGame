@@ -7,6 +7,8 @@ public class PauseMenuToggle : MonoBehaviour {
 
     private CanvasGroup canvasGroup;
     public Canvas hudCanvas;
+    public HealthManager healthManager;
+
     // Start is called before the first frame update
     void Start() {
         
@@ -14,7 +16,7 @@ public class PauseMenuToggle : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyUp(KeyCode.Escape)) {
+        if (Input.GetKeyUp(KeyCode.Escape) && !healthManager.isDead()) {
             CanvasGroup hudCanvasGroup = hudCanvas.GetComponent<CanvasGroup>();
             
             if (canvasGroup.interactable) { // resume back to game

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIStateMachine : MonoBehaviour {
+public class AIStateMachine : MonoBehaviour
+{
     public enum AIState
     {
         Attacking,
@@ -15,11 +16,11 @@ public class AIStateMachine : MonoBehaviour {
     private int enemyDistractionDistance = 8;
     private int enemyAttackDistance = 3;
     private int enemyAggroDistance = 30;
-    public string attackAnimationName = "Attack";
-    public string runAnimationName = "Run Forward";
-    public string wanderingAnimationName = "Walk";
-    public string idleAnimationName = "Idle";
-    public string distractedAnimationName = "Idle";
+    public string attackAnimationName = "isAttacking";
+    public string runAnimationName = "isWalking";
+    public string wanderingAnimationName = "isWalking";
+    public string idleAnimationName = "isIdle";
+    public string distractedAnimationName = "isIdle";
     public GameObject player;
     public AIState currentState;
     private HandleState activeHandler;
